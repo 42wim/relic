@@ -31,6 +31,7 @@ import (
 	_ "github.com/sassoftware/relic/v7/token/filetoken"
 	_ "github.com/sassoftware/relic/v7/token/gcloudtoken"
 	_ "github.com/sassoftware/relic/v7/token/scdtoken"
+	_ "github.com/sassoftware/relic/v7/token/sshtoken"
 )
 
 func Token(cfg *config.Config, tokenName string, prompt passprompt.PasswordGetter) (token.Token, error) {
