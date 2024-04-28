@@ -91,6 +91,11 @@ func (tok *sshToken) GetKey(ctx context.Context, keyName string) (token.Key, err
 }
 
 func (key *sshKey) Public() crypto.PublicKey {
+	_, err := getAgent().(agent.ExtendedAgent).Extension("ssh-yubi-setslot@42wim", []byte(key.keyConf.Slot))
+	if err != nil {
+		panic(err)
+	}
+
 	pubKeyBytes, err := getAgent().(agent.ExtendedAgent).Extension("ssh-yubi-publickey@42wim", nil)
 	if err != nil {
 		panic(err)
@@ -114,6 +119,11 @@ func getAgent() agent.Agent {
 }
 
 func (key *sshKey) Sign(rand io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error) {
+	_, err := getAgent().(agent.ExtendedAgent).Extension("ssh-yubi-setslot@42wim", []byte(key.keyConf.Slot))
+	if err != nil {
+		return nil, err
+	}
+
 	return getAgent().(agent.ExtendedAgent).Extension("ssh-yubi-sign@42wim", digest)
 }
 

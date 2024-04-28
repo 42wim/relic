@@ -53,6 +53,7 @@ type TokenConfig struct {
 	RateBurst  int     // (server) allow burst of operations before limit kicks in
 	User       *uint   // User argument for PKCS#11 login (optional)
 	UseKeyring bool    // Read PIN from system keyring
+	Slot       string  // Slot used for sshtoken (yubikey slot)
 
 	name string
 }
@@ -69,6 +70,7 @@ type KeyConfig struct {
 	Roles           []string // List of user roles that can use this key
 	Timestamp       bool     // If true, attach a timestamped countersignature when possible
 	Hide            bool     // If true, then omit this key from 'remote list-keys'
+	Slot            string   // Slot used for sshtoken (yubikey slot)
 
 	name  string
 	token *TokenConfig
